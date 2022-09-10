@@ -12,7 +12,7 @@
       type="button"
       @click="$emit('search')"
     >
-      search
+      SEARCH
     </button>
   </div>
 </template>

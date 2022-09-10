@@ -6,8 +6,8 @@
       >
         <NuxtLink
           to="/"
-          class="text-base font-medium text-gray-500 hover:text-gray-900"
-          >홈페이지</NuxtLink
+          class="text-base font-medium text-indigo-500 hover:text-indigo-900"
+          >Nuxt Shopping</NuxtLink
         >
         <NuxtLink
           to="/product"
@@ -19,12 +19,6 @@
     <main
       class="mx-auto mt-10 max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28"
     >
-      <h1
-        class="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl md:text-6xl"
-      >
-        {{ $route.name }} 페이지
-      </h1>
-
       <Nuxt />
     </main>
   </div>

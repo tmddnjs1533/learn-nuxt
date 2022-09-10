@@ -1,5 +1,10 @@
 <template>
   <div>
+    <h1
+      class="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl md:text-6xl"
+    >
+      {{ $route.name }} 페이지
+    </h1>
     <div
       class="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8"
     >
@@ -15,10 +20,10 @@
       <div
         class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8"
       >
-        <a
+        <NuxtLink
           v-for="product in products"
           :key="product.id"
-          :href="product.href"
+          :to="'/detail/' + product.id"
           class="group"
         >
           <div
@@ -34,7 +39,7 @@
           <p class="mt-1 text-lg font-medium text-gray-900">
             {{ product.price }}
           </p>
-        </a>
+        </NuxtLink>
       </div>
     </div>
   </div>
