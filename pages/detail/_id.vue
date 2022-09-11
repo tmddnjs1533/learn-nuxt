@@ -62,10 +62,11 @@
 <script lang="ts">
 import Vue from 'vue'
 import { fetchProductById } from '~/api'
+import { IProduct } from '~/api/model'
 
 export default Vue.extend({
   name: 'Id',
-  async asyncData({ params }) {
+  async asyncData({ params }): Promise<{ product: IProduct }> {
     // const id = this.$route.params.id;
     const response = await fetchProductById(params.id)
     const product = response.data
@@ -78,7 +79,8 @@ export default Vue.extend({
    */
   methods: {
     addToCart() {
-      alert('카트에 추가')
+      this.$store.commit('addCartItem', this.product)
+      this.$router.push('/cart') /* .catch(error=>{}) */
     }
   }
 })
