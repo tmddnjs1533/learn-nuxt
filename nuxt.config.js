@@ -42,5 +42,11 @@ export default {
         autoprefixer: {}
       }
     }
+  },
+  env: {
+    baseURL:
+      process.env.NODE_ENV === 'production'
+        ? 'https://my-json-server.typicode.com/tmddnjs1533/swkim-first-nuxt-shopping-api'
+        : 'http://localhost:8080'
   }
 }

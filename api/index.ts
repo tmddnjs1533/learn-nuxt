@@ -2,7 +2,7 @@ import axios from 'axios'
 import { IProduct } from '~/api/model'
 
 const instance = axios.create({
-  baseURL: 'http://localhost:8080'
+  baseURL: process.env.baseURL
 })
 
 function fetchProductById(id: string) {
