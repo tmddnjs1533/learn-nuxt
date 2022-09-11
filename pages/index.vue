@@ -53,9 +53,8 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import axios from 'axios'
 import SearchInput from '~/components/SearchInput.vue'
-import { fetchProductByKeyword } from '~/api'
+import { fetchProduct, fetchProductByKeyword } from '~/api'
 import { IProduct } from '~/api/model'
 export default Vue.extend({
   name: 'IndexPage',
@@ -66,7 +65,7 @@ export default Vue.extend({
    * VueRouter 의 beforeEnter() {} 와 동일(데이터 fetch 를 완료한 후에 사용자에게 페이지를 보여주는 속성)
    */
   async asyncData(): Promise<{ products: IProduct[] }> {
-    const response = await axios.get('http://localhost:8080/products')
+    const response = await fetchProduct()
     const products = response.data.map((item: IProduct) => ({
       ...item,
       imageUrl: `${item.imageUrl}?random=${Math.random()}`
