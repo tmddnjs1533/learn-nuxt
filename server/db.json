@@ -193,6 +193,12 @@
       "name": "Awesome Concrete Shirt",
       "price": "165.00",
       "imageUrl": "http://placeimg.com/640/480/fashion"
+    },
+    {
+      "id": 5,
+      "name": "Small Rubber Salad",
+      "price": "455.00",
+      "imageUrl": "http://placeimg.com/640/480/fashion"
     }
   ]
 }

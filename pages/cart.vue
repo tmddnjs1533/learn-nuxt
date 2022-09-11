@@ -49,9 +49,14 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { Context } from '@nuxt/types'
+import { FETCH_CART_ITEMS } from '~/store'
 
 export default Vue.extend({
-  name: 'Cart'
+  name: 'Cart',
+  async asyncData({ store }: Context) {
+    await store.dispatch(FETCH_CART_ITEMS)
+  }
 })
 </script>
 

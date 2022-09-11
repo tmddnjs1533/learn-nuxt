@@ -61,8 +61,9 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { fetchProductById } from '~/api'
+import { createCartItem, fetchProductById } from '~/api'
 import { IProduct } from '~/api/model'
+import { ADD_CART_ITEM } from '~/store'
 
 export default Vue.extend({
   name: 'Id',
@@ -78,9 +79,10 @@ export default Vue.extend({
    * if (process.client) const { from, nuxtState } = context
    */
   methods: {
-    addToCart() {
-      this.$store.commit('addCartItem', this.product)
-      this.$router.push('/cart') /* .catch(error=>{}) */
+    async addToCart() {
+      await createCartItem(this.product)
+      this.$store.commit(ADD_CART_ITEM, this.product)
+      await this.$router.push('/cart') /* .catch(error=>{}) */
     }
   }
 })
