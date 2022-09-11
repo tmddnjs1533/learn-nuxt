@@ -16,7 +16,7 @@
           <!--:search-keyword="searchKeyword"-->
           <!--@input="updateSearchKeyword"-->
           <!-- = v-model -->
-          <SearchInput v-model="searchKeyword" />
+          <SearchInput v-model="searchKeyword" @search="searchProducts" />
           <!-- props 키는 kebab-case 로 내려준다 -->
         </div>
       </div>
@@ -55,6 +55,8 @@
 import Vue from 'vue'
 import axios from 'axios'
 import SearchInput from '~/components/SearchInput.vue'
+import { fetchProductByKeyword } from '~/api'
+import { IProduct } from '~/api/model'
 export default Vue.extend({
   name: 'IndexPage',
   components: { SearchInput },
@@ -63,30 +65,32 @@ export default Vue.extend({
    * data에 할당하는 것이 아니고 반환함.
    * VueRouter 의 beforeEnter() {} 와 동일(데이터 fetch 를 완료한 후에 사용자에게 페이지를 보여주는 속성)
    */
-  async asyncData() {
+  async asyncData(): Promise<{ products: IProduct[] }> {
     const response = await axios.get('http://localhost:8080/products')
-    const products = response.data.map(
-      (item: {
-        id: number
-        name: string
-        price: string
-        imageUrl: string
-      }) => ({
-        ...item,
-        imageUrl: `${item.imageUrl}?random=${Math.random()}`
-      })
-    )
+    const products = response.data.map((item: IProduct) => ({
+      ...item,
+      imageUrl: `${item.imageUrl}?random=${Math.random()}`
+    }))
     return { products }
   },
-  data() {
+
+  data(): { searchKeyword: string; products: IProduct[] | [] } {
     return {
+      products: [],
       searchKeyword: '' // camelCase
     }
   },
   methods: {
-    updateSearchKeyword(keyword: string) {
-      // keyword : 자식 요소에서 올려준 값
-      this.searchKeyword = keyword
+    // updateSearchKeyword(keyword: string) {
+    //   // keyword : 자식 요소에서 올려준 값
+    //   this.searchKeyword = keyword
+    // }
+    async searchProducts() {
+      const response = await fetchProductByKeyword(this.searchKeyword)
+      this.products = response.data.map((item: IProduct) => ({
+        ...item,
+        imageUrl: `${item.imageUrl}?random=${Math.random()}`
+      }))
     }
   }
 })

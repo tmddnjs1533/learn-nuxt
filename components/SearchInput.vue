@@ -16,6 +16,7 @@
     <button
       class="rounded-md border bg-indigo-500 py-3 px-4 text-sm font-medium leading-4 text-white shadow-sm hover:bg-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
       type="button"
+      @click="$emit('search')"
     >
       SEARCH
     </button>
