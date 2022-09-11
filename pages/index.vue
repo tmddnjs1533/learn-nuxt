@@ -13,7 +13,11 @@
           Products
         </h2>
         <div>
-          <SearchInput />
+          <!--:search-keyword="searchKeyword"-->
+          <!--@input="updateSearchKeyword"-->
+          <!-- = v-model -->
+          <SearchInput v-model="searchKeyword" />
+          <!-- props 키는 kebab-case 로 내려준다 -->
         </div>
       </div>
 
@@ -35,9 +39,11 @@
               class="h-full w-full object-cover object-center group-hover:opacity-75"
             />
           </div>
-          <h3 class="mt-4 text-sm text-gray-700">{{ product.name }}</h3>
-          <p class="mt-1 text-lg font-medium text-gray-900">
-            {{ product.price }}
+          <h3 class="mt-4 text-sm font-medium text-gray-700">
+            {{ product.name }}
+          </h3>
+          <p class="mt-1 text-lg font-black text-gray-900">
+            $ {{ product.price }}
           </p>
         </NuxtLink>
       </div>
@@ -71,6 +77,17 @@ export default Vue.extend({
       })
     )
     return { products }
+  },
+  data() {
+    return {
+      searchKeyword: '' // camelCase
+    }
+  },
+  methods: {
+    updateSearchKeyword(keyword: string) {
+      // keyword : 자식 요소에서 올려준 값
+      this.searchKeyword = keyword
+    }
   }
 })
 </script>
