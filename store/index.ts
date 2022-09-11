@@ -9,6 +9,7 @@ export const state = () => ({
 // constants
 export const ADD_CART_ITEM = 'ADD_CART_ITEM'
 export const SET_CART_ITEMS = 'SET_CART_ITEMS'
+export const FETCH_CART_ITEMS = 'FETCH_CART_ITEMS'
 
 export type RootState = ReturnType<typeof state>
 
@@ -25,15 +26,8 @@ export const mutations: MutationTree<RootState> = {
   }
 }
 export const actions: ActionTree<RootState, RootState> = {
-  /**
-   * nuxt ssr 에서 api 데이터를 가져와서 스토어 설정하는 함수
-   * 호출하지 않아도 자동으로 실행됨.
-   * @param storeContext : store Context
-   * @param nuxtContext : 넉스트 Context
-   */
-  async nuxtServerInit({ commit }) {
+  async [FETCH_CART_ITEMS]({ commit }) {
     const { data } = await fetchCartItems()
-    // console.log(response)
     commit(
       SET_CART_ITEMS,
       data.map((item: IProduct) => ({
@@ -41,6 +35,16 @@ export const actions: ActionTree<RootState, RootState> = {
         imageUrl: `${item.imageUrl}?random=${Math.random()}`
       }))
     )
+  },
+  /**
+   * nuxt ssr 에서 api 데이터를 가져와서 스토어 설정하는 함수
+   * 호출하지 않아도 자동으로 실행됨.
+   * @param storeContext : store Context
+   * @param nuxtContext : 넉스트 Context
+   */
+  async nuxtServerInit(storeContext) {
+    // 스테이트 별로 관리하는 것이 좋으므로 각각의 스테이트 별로 디스패치하는 패턴을 선택한다.
+    await storeContext.dispatch(FETCH_CART_ITEMS)
   }
 }
 // export const getters: GetterTree<RootState, RootState> = {
