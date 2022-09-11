@@ -59,15 +59,14 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import Vue from 'vue'
 import { createCartItem, fetchProductById } from '~/api'
-import { IProduct } from '~/api/model'
 import { ADD_CART_ITEM } from '~/store'
 
 export default Vue.extend({
   name: 'Id',
-  async asyncData({ params }): Promise<{ product: IProduct }> {
+  async asyncData({ params }) {
     // const id = this.$route.params.id;
     const response = await fetchProductById(params.id)
     const product = response.data

@@ -14,7 +14,6 @@
     "lintfix": "prettier --write --list-different . && npm run lint:js -- --fix"
   },
   "dependencies": {
-    "@heroicons/vue": "^2.0.10",
     "axios": "^0.27.2",
     "core-js": "^3.19.3",
     "json-server": "^0.17.0",
